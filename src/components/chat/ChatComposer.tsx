@@ -7,9 +7,10 @@ interface Props {
   onSend: () => void;
   textareaRef?: RefObject<HTMLTextAreaElement | null>;
   embedded?: boolean;
+  disabled?: boolean;
 }
 
-export function ChatComposer({ value, onChange, onSend, textareaRef, embedded = false }: Props) {
+export function ChatComposer({ value, onChange, onSend, textareaRef, embedded = false, disabled = false }: Props) {
   const localRef = useRef<HTMLTextAreaElement>(null);
   const ref = textareaRef ?? localRef;
   const composing = useRef(false);

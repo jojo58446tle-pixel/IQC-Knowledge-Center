@@ -46,7 +46,7 @@ Static output is created in `dist/` and can be deployed to Netlify or an approve
 The Chat page embeds the JOJO Full Page experience:
 
 ```text
-https://agent.sungrow.cn/webim/#/chat/FxkjSJ?isFullPage=1
+ADP/JOJO via server-side Netlify Function
 ```
 
 The iframe keeps microphone permission enabled. No App Key, token, password, or API secret is stored in the frontend.
@@ -65,7 +65,6 @@ If a fully custom chat interface is required later, add a secure server-side JOJ
 src/
   components/
     chat/
-      JojoEmbed.tsx
       ...
     common/
     layout/

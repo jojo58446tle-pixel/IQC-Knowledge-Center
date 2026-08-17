@@ -1,7 +1,15 @@
 export type PageKey = "chat" | "documents" | "ng-history" | "settings" | "about";
 export type ConnectionState = "connected" | "not-connected" | "error";
 
-export interface ReferenceSource { id: string; title: string; url?: string }
+export interface ReferenceSource {
+  id: string;
+  index?: number;
+  name?: string;
+  title?: string;
+  type?: number;
+  docName?: string;
+  url?: string;
+}
 
 export interface MaterialInformation {
   materialCode: string;
