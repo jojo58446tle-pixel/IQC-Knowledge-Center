@@ -15,7 +15,7 @@ export function AppHeader({ onOpenDrawer }: AppHeaderProps) {
       </div>
       <div className="flex shrink-0 items-center gap-2 sm:gap-3">
         <span className="grid size-10 place-items-center rounded-full bg-slate-100 text-slate-700"><CircleUserRound size={22} aria-hidden="true" /></span>
-        <div className="hidden sm:block"><p className="text-xs font-semibold text-slate-800">IQC Team</p><p className="mt-0.5 text-[11px] text-slate-500">Company AI offline</p></div>
+        <div className="hidden sm:block"><p className="text-xs font-semibold text-slate-800">IQC Team</p><p className="mt-0.5 text-[11px] text-slate-500">Internal corporate access</p></div>
       </div>
     </header>
   );

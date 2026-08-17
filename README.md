@@ -1,21 +1,24 @@
 # IQC Knowledge Center
 
-IQC Knowledge Center is a lightweight internal frontend for IQC teams to search and ask about SOP, WI, Document Master Lists, Material Codes, Monthly Reports, Incoming NG, Production NG, supplier issues, and inspection information.
+IQC Knowledge Center is an internal frontend for IQC teams. Version 1 embeds the approved company AI experience, **JOJO**, and keeps supporting pages for Documents, NG History, Settings, and About.
 
-Version 1 provides a complete responsive user interface and modular service boundaries. JOJO is not connected in this release, and no external AI service is called.
+## Version 1 architecture
 
-## Project overview
+```text
+IQC user
+  ↓
+IQC Knowledge Center
+  ↓
+JOJO Full Page Embed
+  ↓
+ADP / Company AI
+  ↓
+Company Knowledge Base
+  ↓
+SOP / WI / Master List / Monthly Report / NG History
+```
 
-- Chat-first interface with quick question templates
-- Reusable answer component for text, bullets, tables, material data, NG data, document data, and references
-- Document list with search and category filters
-- NG History with search, year, month, and type filters
-- Settings UI prepared for JOJO API or JOJO Embed
-- AI-first layout with an on-demand navigation drawer
-- Desktop tables and mobile stacked record cards
-- Keyboard-safe mobile viewport handling with a real, IME-aware textarea
-- Loading, error, empty, missing-reference, and not-connected states
-- Static frontend build with no Version 1 backend
+The JOJO embed is company-hosted and is expected to require the corporate network, SASE, VPN, or other approved internal access.
 
 ## Technology
 
@@ -27,86 +30,56 @@ Requires Node.js 20.19 or later and npm.
 
 ```bash
 npm install
-```
-
-## Development
-
-```bash
 npm run dev
 ```
 
-## Build
+## Production build
 
 ```bash
 npm run build
 ```
 
-The static production output is generated in `dist/` and can be hosted on Netlify, Cloudflare Pages, Vercel, or an internal static web server.
+Static output is created in `dist/` and can be deployed to Netlify or an approved internal static host.
 
-```bash
-npm run preview
+## JOJO integration
+
+The Chat page embeds the JOJO Full Page experience:
+
+```text
+https://agent.sungrow.cn/webim/#/chat/FxkjSJ?isFullPage=1
 ```
+
+The iframe keeps microphone permission enabled. No App Key, token, password, or API secret is stored in the frontend.
+
+### Important network note
+
+The web shell can be publicly reachable if hosted on Netlify, but JOJO itself may not resolve or load outside the company network. This is expected for an internal company AI service.
+
+## Future API integration
+
+If a fully custom chat interface is required later, add a secure server-side JOJO API adapter. Do not call secret-authenticated APIs directly from browser code.
 
 ## Project structure
 
 ```text
 src/
   components/
-    chat/             AI answer, references, composer, empty state, and states
-    common/           Shared UI components
-    layout/           Header, drawer, connection status, and responsive shell
-  data/               Clearly separated DEMO_DATA
-  hooks/              Visual viewport handling for mobile keyboards
-  pages/              Chat, Documents, NG History, Settings, About
-  services/           AI, document, and NG History service boundaries
-  types/              Shared TypeScript types
-  utils/              Display utilities
-  App.tsx
-  main.tsx
-  styles.css
+    chat/
+      JojoEmbed.tsx
+      ...
+    common/
+    layout/
+  data/
+  hooks/
+  pages/
+  services/
+  types/
+  utils/
 ```
 
-## Demo data
+## Security
 
-All sample records live under `src/data/` and are explicitly marked **DEMO DATA ONLY** in source and UI. They are not production knowledge and must not be used for quality decisions. The sample Material Code response is a UI demonstration from the specification. No answer is generated when a user sends a new question in Version 1.
-
-## Future JOJO AI integration
-
-The UI calls only `src/services/aiService.ts`. In Version 1, `sendMessage(message)` always returns:
-
-```ts
-{
-  success: false,
-  configured: false,
-  message: "Company AI connection is not configured yet."
-}
-```
-
-Later, replace the service implementation with a call to a secure backend or serverless function. Do not call JOJO directly with secret credentials from the browser.
-
-```text
-User
-  ↓
-IQC Knowledge Web
-  ↓
-AI Service Layer
-  ↓
-JOJO Company AI API
-  ↓
-Company Knowledge Base
-  ↓
-SOP / WI / Master List / Monthly Report / NG History
-```
-
-### Security rule
-
-- Never store App Keys, secrets, or tokens in frontend source.
-- `VITE_*` variables are public after build and must contain only non-sensitive configuration.
-- JOJO credentials must be stored in a backend or serverless-function environment.
-
-## Service migration path
-
-- Replace `aiService` with the approved JOJO server adapter.
-- Replace `documentService` with the company document REST endpoint.
-- Replace `ngHistoryService` with the approved NG History REST endpoint.
-- Keep the page and component interfaces unchanged to minimize UI rework.
+- Do not store App Keys, secrets, or tokens in frontend source.
+- Treat `VITE_*` values as public after build.
+- Use approved company network access for JOJO.
+- Keep confidential/restricted data handling aligned with company policy.

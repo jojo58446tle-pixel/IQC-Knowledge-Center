@@ -1,0 +1,12 @@
+IQC Knowledge Center V1 - JOJO Embed update
+
+Source changes are complete.
+A deploy-ready static dist/index.html is included and can be uploaded directly to Netlify.
+
+Build verification note:
+The sandbox could not run npm ci/npm run build because registry.npmjs.org DNS access returned EAI_AGAIN. This is an environment network limitation, not a project build error. The source remains a standard React/Vite/TypeScript project and can be rebuilt normally in an environment with npm registry access.
+
+JOJO embed:
+https://agent.sungrow.cn/webim/#/chat/FxkjSJ?isFullPage=1
+
+JOJO requires corporate network / approved company access.
