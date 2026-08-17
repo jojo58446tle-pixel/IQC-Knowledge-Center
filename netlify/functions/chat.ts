@@ -81,7 +81,7 @@ interface ADPEventPayload {
   };
 }
 
-const ADP_CHAT_URL = "https://wss.lke.cloud.tencent.com/adp/v2/chat";
+const ADP_CHAT_URL = "https://wss.lke.tencentcloud.com/adp/v2/chat";
 const ADP_TIMEOUT_MS = 50_000;
 
 /**
