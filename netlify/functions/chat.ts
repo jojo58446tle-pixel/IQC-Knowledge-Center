@@ -340,7 +340,7 @@ export const handler = async (event: NetlifyEvent, context: NetlifyContext) => {
     };
   }
 
-  const appKey = process.env.JOJO_APP_KEY;
+  const appKey = process.env.JOJO_APP_KEY?.trim();
   if (!appKey) {
     console.error("JOJO_APP_KEY environment variable is not set");
     return {
